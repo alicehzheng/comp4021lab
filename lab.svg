@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<svg width="400px" height="450px"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xhtml="http://www.w3.org/1999/xhtml"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:a="http://www.adobe.com/svg10-extensions" a:timeline="independent"
+     onload="load()">
+
+    <script type="text/javascript">
+    <![CDATA[
+    var OBJECT_NAME = "smiley";
+    var OBJECT_WIDTH = 258.63;//specify the width and height of the dizzy face
+    var OBJECT_HEIGHT = 259.93;
+    var MAX_ANGLE_CHANGE = 30;
+
+    var interval = null;
+    var angle_change;
+    var width, height;
+    var displacement;
+    var isASV = false;
+    var isFF = false;
+
+    function load() {
+        angle_change = 2;
+        width = height = 400;
+
+        displacement = new Object();
+        displacement.x = displacement.y = 5;
+
+        isASV = (window.navigator.appName == "Adobe SVG Viewer");
+        isFF = (window.navigator.appName == "Netscape");
+    }
+
+    function playsnd(id) {
+        if (isASV) {
+            var snd = document.getElementById(id + "_asv");
+            snd.endElement();
+            snd.beginElement();
+        }
+        if (isFF) {
+            var snd = document.getElementById(id);
+            snd.currentTime = 0;
+            snd.play();
+        }
+    }
+
+    function move() {
+        var x, y, angle;
+        var translate, rotate;
+        var object = document.getElementById(OBJECT_NAME);
+
+        if (object == null) return;
+
+        x = parseFloat(object.getAttribute("x"));
+        if (isNaN(x)) x = 0;
+
+        y = parseFloat(object.getAttribute("y"));
+        if (isNaN(y)) y = 0;
+
+        angle = parseFloat(object.getAttribute("angle"));
+        if (isNaN(angle)) angle = 0;
+
+        x += displacement.x;
+        if (x < 0) {
+            x = 0;
+            displacement.x = -displacement.x;
+            angle_change = Math.random() * MAX_ANGLE_CHANGE;
+        }
+                
+        if (x > width - OBJECT_WIDTH) {
+            x = width - OBJECT_WIDTH;
+            displacement.x = -displacement.x;
+            angle_change = Math.random() * MAX_ANGLE_CHANGE;
+        }
+
+        y += displacement.y;
+        if (y < 0) {
+            y = 0;
+            displacement.y = -displacement.y;
+            angle_change = Math.random() * MAX_ANGLE_CHANGE;
+        }
+                        
+        if (y > height - OBJECT_HEIGHT) {
+            y = height - OBJECT_HEIGHT;
+            displacement.y = -displacement.y;
+            angle_change = Math.random() * MAX_ANGLE_CHANGE;
+        }
+
+        angle = (angle + angle_change) % 360;
+
+        object.setAttribute("x", x);
+        object.setAttribute("y", y);
+        object.setAttribute("angle", angle);
+
+        // Add the code to translate and rotate here!
+        
+        translate = "translate(" + x + "," + y +")";;
+        rotate = "rotate(" + angle + "," + OBJECT_WIDTH/2.0 + "," + OBJECT_HEIGHT/2.0 + ")";
+        
+        object.setAttribute("transform", translate + rotate);
+        
+        
+
+    }
+
+    function startball() {
+        // Setup a new interval
+        if (interval != null) clearInterval(interval);
+        interval = setInterval("move()", 20);
+    }
+
+    function stopball() {
+        // Clear the interval
+        if (interval != null) {
+            clearInterval(interval);
+            interval = null;
+        }
+    }
+
+    function randomize() {
+        // Change the displacement by Math.random()
+        displacement.x = Math.random() * 100 - 50;
+        displacement.y = Math.random() * 100 - 50;
+    }
+    ]]>
+    </script>
+
+    <style type="text/css">
+    <![CDATA[
+    .background { fill: lightblue; stroke: darkblue; stroke-width: 2; }
+    .button { cursor: pointer; }
+    .button rect { fill: lightgray; }
+    .button:hover rect { fill: #f0f0f0; stroke: lightgray; stroke-width: 1; }
+    .button text { font-size:15px; font-weight:bold; text-anchor:middle; }
+    ]]>
+    </style>
+
+
+    <!-- Add your audio tag here -->
+
+
+    <rect x="1" y="1" width="398px" height="398px" class="background"/>
+
+
+    <!-- Add your webdraw object here -->
+    
+    	<g id="smiley"
+			transform="translate(-65.9341 8.79121) translate(38.4615 1.0989) translate(-149 -97) translate(176.67 91.516) scale(0.638114 0.626494) translate(-176.67 -91.516) translate(176.67 91.516) scale(0.813448 0.813693) translate(-176.67 -91.516) translate(0 -9.80827)"
+			
+			 style="fill:rgb(1,175,255)">
+			<ellipse cx="257.5" cy="208.5" rx="110.5" ry="100.5"
+				transform="translate(46.1538 43.956) translate(112.088 23.0769) translate(-124.176 -115.385) translate(6.59341 26.3736) translate(-21.978 13.1868) translate(147 108) scale(0.970166 1.25149) translate(-147 -108) translate(147 108) scale(0.989749 0.951946) translate(-147 -108) translate(147 108) scale(0.994822 0.90363) translate(-147 -108) translate(147 108) scale(0.994795 0.989843) translate(-147 -108) translate(-10.4076 44.3435) translate(13.8768 -34.0311) translate(0 -39.1873) translate(0 28.8749) translate(2.3128 -3.09374) translate(0 -12.3749) translate(1.1564 3.09374) translate(0 -7.21872) translate(3.46921 13.4062) translate(0 0) translate(6.93841 0) translate(-5.78201 -1.03125)"
+				
+				 style="fill:rgb(128,255,128);stroke:rgb(0,0,0);stroke-width:1"/>
+			<path
+				d="M236.5 180 C235.672 180 235 180 235 180 C235 181.657 235.672 183 236.5 183 C238.985
+					183 241 181.657 241 180 C241 176.686 238.985 174 236.5 174 C232.358 174 229
+					176.686 229 180 C229 184.971 232.358 189 236.5 189 C242.299 189 247 184.971
+					247 180 C247 173.373 242.299 168 236.5 168 C229.044 168 223 173.373 223 180
+					C223 188.284 229.044 195 236.5 195 C245.613 195 253 188.284 253 180 C253
+					170.059 245.613 162 236.5 162"
+				transform="matrix(1 0 0 1.06061 -2.84217e-014 -10.8182) translate(0 3.10832) translate(2.1978 -15.5416) translate(-3.2967 3.10832) translate(3.2967 6.21664) translate(0 5.18053) translate(2.1978 -15.5416) translate(1.0989 7.25275) translate(-10.989 -2.07221) translate(7.69231 0)"
+				
+				 style="fill:none;stroke:rgb(0,0,0);stroke-width:2"/>
+			<path
+				d="M316.5 185.5 C315.672 185.5 315 185.5 315 185.5 C315 187.157 315.672 188.5 316.5
+					188.5 C318.985 188.5 321 187.157 321 185.5 C321 182.186 318.985 179.5 316.5
+					179.5 C312.358 179.5 309 182.186 309 185.5 C309 190.471 312.358 194.5 316.5
+					194.5 C322.299 194.5 327 190.471 327 185.5 C327 178.873 322.299 173.5 316.5
+					173.5 C309.044 173.5 303 178.873 303 185.5 C303 193.784 309.044 200.5 316.5
+					200.5 C325.613 200.5 333 193.784 333 185.5 C333 175.559 325.613 167.5 316.5
+					167.5"
+				transform="matrix(1 0 0 1.09091 0 -16.7273) translate(-3.2967 -15.1099) translate(4.3956 -1.00733) translate(-5.49451 4.0293) translate(1.0989 -10.0733) translate(1.0989 10.0733) translate(5.49451 8.05861) translate(0 -8.05861)"
+				
+				 style="fill:none;stroke:rgb(0,0,0);stroke-width:2"/>
+			<line x1="255" y1="239" x2="305" y2="239"
+				transform="translate(280 239) scale(1 1) translate(-280 -239) translate(2.1978 10.989)"
+				
+				 style="fill:none;stroke:rgb(0,0,0);stroke-width:2"/>
+			<polygon points="282,199.804 288,210.196 276,210.196"
+				transform="matrix(1 0 0 1.34715 0 -71.1659)"
+				 style="fill:rgb(0,0,255);stroke:rgb(0,0,0);stroke-width:1"/>
+	</g>
+   
+    <g transform="translate(30,405)" class="button" onclick="startball()">
+        <rect rx="10" ry="10" width="100" height="40"/>
+        <text x="50" y="25">Start</text>
+    </g>
+
+    <g transform="translate(150,405)" class="button" onclick="stopball()">
+        <rect rx="10" ry="10" width="100" height="40"/>
+        <text x="50" y="25">Stop</text>
+    </g>
+
+    <g transform="translate(270,405)" class="button" onclick="randomize()">
+        <rect rx="10" ry="10" width="100" height="40"/>
+        <text x="50" y="25">Randomize</text>
+    </g>
+
+</svg>
