@@ -95,7 +95,7 @@
 
         // Add the code to translate and rotate here!
         
-        translate = "translate(" + x + "," + y +")";;
+        translate = "translate(" + x + "," + y +")";
         rotate = "rotate(" + angle + "," + OBJECT_WIDTH/2.0 + "," + OBJECT_HEIGHT/2.0 + ")";
         
         object.setAttribute("transform", translate + rotate);
